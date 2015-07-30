@@ -28,25 +28,10 @@ public class Customer {
         Enumeration rentals = _rentals.elements();
         String result = "Rental Record for " + getName() + "\n";
         while (rentals.hasMoreElements()){
-            double thisAmount = 0;
+            double thisAmount;
             Rental each = (Rental)rentals.nextElement();
 
-            //determine amounts for each line
-            switch (each.get_movie().get_priceCode()){
-                case Movie.REGULAR:
-                    thisAmount +=2;
-                    if (each.get_daysRented() > 2)
-                        thisAmount += (each.get_daysRented() -2) * 1.5;
-                    break;
-                case Movie.NEW_RELEASE:
-                    thisAmount += each.get_daysRented() * 3;
-                    break;
-                case Movie.CHILDRENDS:
-                    thisAmount += 1.5;
-                    if (each.get_daysRented() >2)
-                        thisAmount += (each.get_daysRented() -3) * 1.5;
-                    break;
-            }//switch
+            thisAmount = amountFor(each);
 
             //add frequent renter points
             frequentRenterPoints ++;
@@ -60,6 +45,27 @@ public class Customer {
         result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
         result += "You earned " + String.valueOf(frequentRenterPoints) + "frequenct renter points";
 
+        return result;
+    }
+
+    private double amountFor(Rental aRental) {
+        double result = 0;
+            //determine amounts for each line
+            switch (aRental.get_movie().get_priceCode()){
+                case Movie.REGULAR:
+                    result +=2;
+                    if (aRental.get_daysRented() > 2)
+                        result += (aRental.get_daysRented() -2) * 1.5;
+                    break;
+                case Movie.NEW_RELEASE:
+                    result += aRental.get_daysRented() * 3;
+                    break;
+                case Movie.CHILDRENDS:
+                    result += 1.5;
+                    if (aRental.get_daysRented() >2)
+                        result += (aRental.get_daysRented() -3) * 1.5;
+                    break;
+            }//switch
         return result;
     }
 
