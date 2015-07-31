@@ -8,4 +8,8 @@ abstract class Price {
 
     //昨天弄混乱了。这是getcharge那个函数是getPriceCode。。
     abstract double getCharge(int daysRented);
+
+    int getFrequentRenterPoints(int daysRented) {
+            return 1;
+    }
 }
